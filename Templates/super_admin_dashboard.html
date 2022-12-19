@@ -1,0 +1,35 @@
+{% include "super_admin_header.html" %}
+
+
+<div class="admin_d">
+    <div class="row h-auto">
+        <div class="col-sm-4">
+            <div class="card m-5 border border-2 border-dark h-100 pt-4 px-4" style="border-radius: 20px;">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold fs-2">Total Launched Schemes</h5>
+                    <p class="card-text fs-1 fw-bold text-center">{{scheme}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="card m-5 border border-2 border-dark h-100 pt-4 px-4" style="border-radius:20px;">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold fs-2">Total Registered Sarpanch</h5>
+                    <p class="card-text fs-1 fw-bold text-center">{{sarpanch}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="card m-5 border border-2 border-dark h-100 pt-4 px-4" style="border-radius:20px;">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold fs-2">Total Registered Farmers</h5>
+                    <p class="card-text fs-1 fw-bold text-center">{{farmer}}</p>
+                </div>
+            </div>
+        </div>
+    
+    </div>
+</div>
+
+
+{% include "footer.html" %}

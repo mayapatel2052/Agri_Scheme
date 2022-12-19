@@ -1,0 +1,38 @@
+{% include "admin_header.html" %}
+
+<div class='p-5'>
+<table class="table table-striped border border-1 table-bordered">
+    <thead>
+      <tr class='table-secondary'>
+        <th scope="col">#</th>
+        <th scope="col">Farmer's Name</th>
+        <th scope="col">Mobile Number</th>
+        <th scope="col">Village</th>
+        <th scope="col">Servay Number</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for i in data %}
+      <tr>
+        <td>{{forloop.counter}}</td>
+        <td>{{i.Name}}</td>
+        <td>{{i.Mobile_number}}</td>
+        <td>{{i.Village}}</td>
+        <td>{{i.Servay_num}}</td>
+        <td>
+        <form action="{% url 'approve_farmer' i.Mobile_number %}" method="post">
+          {% csrf_token %}
+          <button class="btn btn-link text-success fw-bold" type="submit">Approve</button>/
+          <a href="{% url 'decline' i.Mobile_number %}" class="btn btn-link fw-bold text-danger" onclick="return confirm('Are You Sure?')">Decline</a>
+        </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+</table>
+</div>
+
+
+
+{% include "footer.html" %}

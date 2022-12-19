@@ -1,0 +1,49 @@
+{% include "admin_header.html" %}
+
+{% for i in schemedata1 %}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card mx-5 mt-5 bg-transparent" style="border-radius: 5px;">
+            <div class="card-body p-4">
+                <h5 class="card-title fw-bold fs-2">{{i.Name}}</h5>
+                <b class="text-danger">Expired Date: {{i.Ending_date}}</b>
+                <p>Eligibility : {{i.Eligibility}} <br>
+                    Description : {{i.Schemes_desc}}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+{% for i in schemedata2 %}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card mx-5 mt-5 bg-transparent" style="border-radius: 5px;">
+            <div class="card-body p-4">
+                <h5 class="card-title fw-bold fs-2">{{i.Name}}</h5>
+                <b class="text-danger">Expired Date: {{i.Ending_date}}</b>
+                <p>Eligibility : {{i.Eligibility}} <br>
+                    Description : {{i.Schemes_desc}}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+{% for i in schemedata3 %}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card mx-5 mt-5 bg-transparent" style="border-radius: 5px;">
+            <div class="card-body p-4">
+                <h5 class="card-title fw-bold fs-2">{{i.Name}}</h5>
+                <b class="text-danger">Expired Date: {{i.Ending_date}}</b>
+                <p>Eligibility : {{i.Eligibility}} <br>
+                    Description : {{i.Schemes_desc}}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+<div class="mt-5"></div>
+
+{% include "footer.html" %}

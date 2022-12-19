@@ -1,0 +1,36 @@
+{% include "farmer_header.html" %}
+
+<div class="p-5">
+    <table class="table table-striped border border-1 table-bordered">
+        <thead>
+            <tr class='table-secondary'>
+                {% comment %} <th scope="col">#</th> {% endcomment %}
+                <th scope="col">Scheme Name</th>
+                <th scope="col">Bank Name</th>
+                <th scope="col">Bank Account Number</th>
+                <th scope="col">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in appstatus %}
+            {% if i.Usr.Mobile_number == fuser %}
+            <tr>
+                {% comment %} <td>{{forloop.counter}}</td> {% endcomment %}
+                <td>{{i.Sch.Name}}</td>
+                <td>{{i.Farmer_Bank_Name}}</td>
+                <td>{{i.Farmer_Account_num}}</td>
+                {% if i.Schemes_status == 'Pending' %}
+                <td class="text-primary fw-bold">{{i.Schemes_status}}</td>
+                {% elif i.Schemes_status == 'Approved By Authority' %}
+                <td class="text-success fw-bold">{{i.Schemes_status}}</td>
+                {% else %}
+                <td class="text-danger fw-bold">{{i.Schemes_status}}</td>
+                {% endif %}
+            </tr>
+            {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% include "footer.html" %}

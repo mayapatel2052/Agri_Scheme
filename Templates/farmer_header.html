@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/css/Style.css">
+
+    <title>Agricultural Schemes</title>
+</head>
+
+<body>
+    <div class="container-fluid all">
+        <div class="header">
+            <div class="logo1"><img src="/static/images/aau.png" class="img p-3" alt="aau"></div>
+            <div class="title text-center fs-1 p-4 fw-bold text-success">Agricultural Schemes For Gujarat</div>
+            <div class="logo2"><img src="/static/images/cait.png" class="img p-3" alt="cait"></div>
+        </div>
+
+
+        <nav class="navbar navbar-expand-lg navbar-dark bg-success br shadow-lg">
+            <div class="container-fluid">
+                <a class="navbar-brand fs-3 mx-4" href="../farmer_dashboard/"><i class="fa fa-home"
+                        aria-hidden="true"></i>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link fs-5" aria-current="page" href="../farmer_ava_scheme/">
+                                Available Schemes
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fs-5" aria-current="page" href="../farmer_status_app/">Status of
+                                Apllication</a>
+                        </li>
+
+                    </ul>
+                    <ul class="navbar-nav">
+                        <li class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle fs-5 px-3" data-bs-toggle="dropdown"><i
+                                    class="fa fa-user-circle" aria-hidden="true">&nbsp;{{fname}}</i></a>
+                            <div class="dropdown-menu dropdown-menu-end mx-3">
+                                <a href="#" class="dropdown-item" data-bs-toggle="modal"
+                                    data-bs-target="#editModal">Edit Profile</a>
+                                <a href="#" class="dropdown-item" role="button" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal">Change Password</a>
+                                <div class="dropdown-divider"></div>
+                                <a href="{% url 'logout' 'farmer' %}"
+                                    onclick="return confirm('Are You Sure To Logout?')" class="dropdown-item">Logout</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        {% if messages %}
+        {% for i in messages %}
+        <script>alert('{{ i }}');</script>
+        {% endfor %}
+        {% endif %}
+
+        <!-- Change Password Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Change Password</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="{% url 'changepass' fuser %}" method="post">
+                        {% csrf_token %}
+                        <div class="modal-body">
+                            <label class="pt-3" for="cpsw">Current Password:</label>
+                            <input class="form-control" type="password" name="cpsw" placeholder="********" required>
+                            <label class="pt-3" for="npsw">New Password:</label>
+                            <input class="form-control" type="password" name="npsw" id="npsw" placeholder="********"
+                                required>
+                            <label class="pt-3" for="cnfpsw">Confirm Password:</label>
+                            <input class="form-control" type="password" name="cnfpsw" id="cnfpsw" placeholder="********"
+                                required>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-danger">Save Password</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!--Edit Profile-->
+        <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Edit Your Profile</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <form action="{% url 'fedit' fuser %}" method="post">
+                        {% for i in fdata %}
+                        {% csrf_token %}
+                        <div class="modal-body">
+                            <label for="name">Full Name:</label>
+                            <input class="form-control" type="text" name="name" value="{{i.Name}}" required>
+
+                            <label class="pt-3" for="mobile">Mobile Number:</label>
+                            <input class="form-control" type="tel" pattern="[0-9]{10}" name="mobile"
+                                value="{{i.Mobile_number}}" disabled required>
+
+                            <label class="pt-3" for="village">Village:</label>
+                            <input class="form-control" type="text" name="village" value="{{i.Village}}" disabled required>
+
+                            <label class="pt-3" for="area">Land Area (in hacter):</label>
+                            <input class="form-control" type="number" name="area" value="{{i.Land_area}}" disabled required>
+
+                            <label class="pt-3" for="servay">Servay Number:</label>
+                            <input class="form-control" type="number" name="servay" value="{{i.Servay_num}}" disabled required>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-success">Save</button>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="main">

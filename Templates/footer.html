@@ -1,0 +1,31 @@
+</div>
+
+
+<div class="footer bg-success d-flex bottom-0">
+    <div class="fw-bold fs-5 font-monospace mx-3 text-light py-2" style="letter-spacing: 2px; width: 50%;">
+        Cait@2022
+    </div>
+    <div class="fs-5 text-light mx-4 py-2" style="width: 50%; overflow: hidden ;">
+        <p class="mx-3 text-end">Developed by &nbsp;&nbsp;&nbsp;<b>Maya V. Langnecha</b></p>
+    </div>
+</div>
+
+
+
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="/static/JS/all.js"></script>
+<script src="/static/JS/citiesall.js"></script>
+<script src="/static/JS/passwordchk.js"></script>
+<script>
+    print_district("dist");
+    var today = new Date().toISOString().split('T')[0];
+    document.getElementsByName("sdate")[0].setAttribute('min', today);
+    function enddate(){
+        var stdate = document.getElementById("sdate").value;
+        document.getElementsByName("edate")[0].setAttribute('min', stdate);
+    }
+</script>
+</body>
+
+</html>

@@ -1,0 +1,182 @@
+{% include "super_admin_header.html" %}
+
+
+<div class='p-5'>
+  <select name="user" class="form-select my-3" style="width: 200px;" id="myselection">
+    <option value="farmer" name='farmer'>Farmer</option>
+    <option value="sarpanch" name='sarpanch'>Sarpanch</option>
+  </select>
+
+  <div class="myDiv" id="farmer">
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr class='table-secondary'>
+          <th scope="col">#</th>
+          <th scope="col">Farmer's Name</th>
+          <th scope="col">Mobile No</th>
+          <th scope="col">District</th>
+          <th scope="col">Taluka</th>
+          <th scope="col">Village</th>
+          <th scope="col">Land Area</th>
+          <th scope="col">Servay Number</th>
+          <th scope="col">Password</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for i in data_farmer %}
+        <tr>
+          <td>{{forloop.counter}}</td>
+          <td>{{i.Name}}</td>
+          <td>{{i.Mobile_number}}</td>
+          <td>{{i.District}}</td>
+          <td>{{i.Taluka}}</td>
+          <td>{{i.Village}}</td>
+          <td>{{i.Land_area}}</td>
+          <td>{{i.Servay_num}}</td>
+          <td>********</td>
+          <td>
+            <button class="btn btn-link text-success fw-bold" data-bs-toggle="modal"
+              data-bs-target="#editModal{{forloop.counter}}">Edit</button>/
+            <a href="{% url 'sadeleteuser' i.Mobile_number %}" class="btn btn-link fw-bold text-danger"
+              onclick="return confirm('Are You Sure?')">Delete</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+
+    </table>
+  </div>
+  {% for i in data_farmer %}
+  <div class="modal fade" id="editModal{{forloop.counter}}" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Edit User's Profile</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="{% url 'sedituser' i.Mobile_number %}" method="post">
+          {% csrf_token %}
+          <div class="modal-body">
+            <label class="pt-3" for="name">Full Name:</label>
+            <input class="form-control" type="text" name="name" value="{{i.Name}}" required>
+
+            <label class="pt-3" for="mobile">Mobile Number:</label>
+            <input class="form-control" type="tel" pattern="[0-9]{10}" name="mobile" value="{{i.Mobile_number}}" required>
+
+            <label class="pt-3" for="password">Password:</label>
+            <input class="form-control" type="password" name="password" value="{{i.Password}}" disabled required>
+
+            <label for="district" class="pt-3">District:</label>
+            <input class="form-control" type="text" name="district" value="{{i.District}}" required>
+
+            <label for="taluka" class="pt-3">Taluka:</label>
+            <input class="form-control" type="text" name="taluka" value="{{i.Taluka}}" required>
+
+            <label class="pt-3" for="village">Village:</label>
+            <input class="form-control" type="text" name="village" value="{{i.Village}}" required>
+
+            <label class="pt-3" for="area">Land Area (in hacter):</label>
+            <input class="form-control" type="number" name="area" value="{{i.Land_area}}" required>
+
+            <label class="pt-3" for="servay">Servay Number:</label>
+            <input class="form-control" type="number" name="servay" value="{{i.Servay_num}}" required>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-success">Save</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+
+
+  <div class="myDiv" id="sarpanch">
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr class='table-secondary'>
+          <th scope="col">#</th>
+          <th scope="col">sarpanch's Name</th>
+          <th scope="col">Mobile No</th>
+          <th scope="col">District</th>
+          <th scope="col">Taluka</th>
+          <th scope="col">Village</th>
+          <th scope="col">Password</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for i in data_sarpanch %}
+        <tr>
+          <td>{{forloop.counter}}</td>
+          <td>{{i.Name}}</td>
+          <td>{{i.Mobile_number}}</td>
+          <td>{{i.District}}</td>
+          <td>{{i.Taluka}}</td>
+          <td>{{i.Village}}</td>
+          <td>********</td>
+          <td>
+            <button class="btn btn-link text-success fw-bold" data-bs-toggle="modal"
+            data-bs-target="#seditModal{{forloop.counter}}">Edit</button>/
+            <a href="{% url 'sadeleteuser' i.Mobile_number %}" class="btn btn-link fw-bold text-danger"
+              onclick="return confirm('Are You Sure?')">Delete</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+
+    </table>
+  </div>
+  {% for i in data_sarpanch %}
+  <div class="modal fade" id="seditModal{{forloop.counter}}" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Edit User's Profile</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="{% url 'sedituser' i.Mobile_number %}" method="post">
+          {% csrf_token %}
+          <div class="modal-body">
+            <label class="pt-3" for="name">Full Name:</label>
+            <input class="form-control" type="text" name="name" value="{{i.Name}}" required>
+
+            <label class="pt-3" for="mobile">Mobile Number:</label>
+            <input class="form-control" type="tel" pattern="[0-9]{10}" name="mobile" value="{{i.Mobile_number}}" required>
+
+            <label class="pt-3" for="password">Password:</label>
+            <input class="form-control" type="password" name="password" value="{{i.Password}}" disabled required>
+
+            <label for="district" class="pt-3">District:</label>
+            <input class="form-control" type="text" name="district" value="{{i.District}}" required>
+
+            <label for="taluka" class="pt-3">Taluka:</label>
+            <input class="form-control" type="text" name="taluka" value="{{i.Taluka}}" required>
+
+            <label class="pt-3" for="village">Village:</label>
+            <input class="form-control" type="text" name="village" value="{{i.Village}}" required>
+            <input type="text" name="area" value="null" hidden>
+            <input type="text" name="servay" value="null" hidden>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-success">Save</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+
+
+</div>
+</div>
+
+
+
+{% include "footer.html" %}

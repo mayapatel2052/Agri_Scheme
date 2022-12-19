@@ -1,0 +1,62 @@
+{% include 'farmer_header.html' %}
+
+<div class="container">
+    <form class="px-4 pb-4" method="post" action="{% url 'applyscheme' s_id %}">
+        {% csrf_token %}
+        <div class="basic">
+            {% for i in schemedata %}
+            <label class="pt-3" for="sname">Scheme Name:</label>
+            <input class="form-control" type="text" name="sname" value="{{i.Name}}" disabled required>
+            {% endfor %}
+            {% for i in userdata %}
+            <label class="pt-3" for="name">Your Full Name:</label>
+            <input class="form-control" type="text" name="name" value="{{i.Name}}" disabled required>
+            
+            <label class="pt-3" for="mobile">Mobile Number:</label>
+            <input class="form-control" type="tel" name="mobile"  value="{{i.Mobile_number}}" disabled required>
+            
+            <label for="district" class="pt-3">Your District:</label>
+            <input class="form-control" type="text" name="district" value="{{i.District}}" disabled required>
+            
+            
+            <label for="taluka" class="pt-3">Your Taluka:</label>
+            <input class="form-control" type="text" name="taluka" value="{{i.Taluka}}" disabled required>
+            
+            <label class="pt-3" for="village">Your Village:</label>
+            <input class="form-control" type="text" name="village" value="{{i.Village}}" disabled required>
+
+            <label class="pt-3" for="area">Land Area (in hacter):</label>
+            <input class="form-control" type="number" name="area" value="{{i.Land_area}}" disabled>
+            
+            <label class="pt-3" for="servay">Your Servay Number:</label>
+            <input class="form-control" type="number" name="servay" value="{{i.Servay_num}}" disabled>
+
+            {% endfor %}
+
+            <label class="pt-3" for="adhar">Enter Adhar Card Number:</label>
+            <input class="form-control" type="tel" name="adhar" pattern="[0-9]{12}" required>
+
+            <br>
+            <fieldset>
+                <legend>Bank Details</legend>
+                <label for="bname">Bank Name:</label>
+                <input class="form-control" type="text" name="bname" required>
+                
+                <label for="baccount" class="mt-3">Account Number:</label>
+                <input class="form-control" type="number" name="baccount" required>
+                
+                <label for="bifsc" class="mt-3">IFSC Code:</label>
+                <input class="form-control" type="text" name="bifsc" required>
+            </fieldset>
+
+            <div class="text-center">
+                <input type="submit" class="btn btn-success mx-3 mt-3" name="submit" value="Submit">
+                <input type="reset" class="btn btn-danger mt-3" value="Cancle">
+            </div>
+        </div>
+
+    </form>
+</div>
+
+
+{% include 'footer.html' %}

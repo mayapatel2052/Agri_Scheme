@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/css/Style.css">
+
+    <title>Agricultural Schemes</title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .form .contant {
+            height: auto;
+            border: 2px solid #009933;
+            border-radius: 20px;
+            border-collapse: collapse;
+        }
+    </style>
+</head>
+
+<body>
+    {% if messages %}
+    {% for i in messages %}
+    <script>alert('{{ i }}');</script>
+    {% endfor %}
+    {% endif %}
+    <div class="container-fluid all">
+        <div class="header">
+            <div class="logo1"><img src="/static/images/aau.png" class="img p-3" alt="aau"></div>
+            <div class="title text-center fs-1 p-4 fw-bold text-success">Agricultural Schemes For Gujarat</div>
+            <div class="logo2"><img src="/static/images/cait.png" class="img p-3" alt="cait"></div>
+        </div>
+
+
+        <nav class="navbar navbar-expand-lg navbar-dark bg-success br shadow-lg">
+            <div class="container-fluid">
+                <a class="navbar-brand fs-3 mx-4" href="../"><i class="fa fa-home" aria-hidden="true"></i>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    </ul>
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link fs-5" aria-current="page" href="../farmer_status_app/"><i
+                                    class="fa fa-user-circle" aria-hidden="true">&nbsp;LOGIN</i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+
+
+        <div class="main py-5">
+            <section>
+                <div class="row mx-5">
+                    <div class="col-4"></div>
+                    <div class="col-lg-4 col-sm-12">
+                        <div class="form">
+                            <div class="contant">
+                                <div class="text-center fs-2 fw-bold pt-3">
+                                    User Registeration
+                                </div>
+                                <hr>
+                                <form class="px-4 pb-4" method="post" action="../registration/">
+                                    {% csrf_token %}
+                                    <div class="basic">
+                                        <label for="type">Register as:</label><br>
+                                        <input type="radio" class="type" name="type" value="farmer" onclick="show_f()"
+                                            checked>
+                                        Farmer
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <input type="radio" class="type" name="type" value="sarpanch"
+                                            onclick="show_s()">
+                                        Sarpanch <br>
+
+                                        <label class="pt-3" for="name">Enter Your Full Name:</label>
+                                        <input class="form-control" type="text" name="name" required>
+
+                                        <label class="pt-3" for="mobile">Enter Mobile Number:</label>
+                                        <input class="form-control" type="tel" pattern="[0-9]{10}" name="mobile"
+                                            required>
+
+                                        <label class="pt-3" for="password">Enter Your Password:</label>
+                                        <input class="form-control" type="password" name="password" required>
+
+                                        <label for="district" class="pt-3">Select Your District:</label>
+                                        <select id="dist" name="district" class="form-control"
+                                            onchange="print_taluka('district', this.selectedIndex);" required></select>
+
+
+                                        <label for="taluka" class="pt-3">Select Your Taluka:</label>
+                                        <select id="district" name="taluka" class="form-control" required></select>
+
+                                        <label class="pt-3" for="village">Enter Your Village:</label>
+                                        <input class="form-control" type="text" name="village" required>
+                                        <div id="f_div">
+                                            <label class="pt-3" for="area">Enter Land Area (in hacter):</label>
+                                            <input class="form-control" type="number" name="area">
+
+                                            <label class="pt-3" for="servay">Enter Your Servay Number:</label>
+                                            <input class="form-control" type="number" name="servay">
+
+                                        </div>
+                                        <div class="text-center">
+                                            <input type="submit" class="btn btn-success mx-3 mt-3" name="submit"
+                                                value="Register">
+                                            <input type="reset" class="btn btn-danger mt-3" value="Cancle">
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3"></div>
+                </div>
+            </section>
+            <script src="/static/js/cities.js"></script>
+            <script language="javascript">
+                print_district("dist");
+                function show_f() {
+                    document.getElementById('f_div').style.display = 'block';
+                }
+                function show_s() {
+                    document.getElementById('f_div').style.display = 'none';
+                }
+            </script>
+
+
+        </div>
+
+
+        <div class="footer bg-success d-flex bottom-0">
+            <div class="fw-bold fs-5 font-monospace mx-3 text-light py-2" style="letter-spacing: 2px; width: 50%;">
+                Cait@2022
+            </div>
+            <div class="fs-5 text-light mx-4 py-2" style="width: 50%; overflow: hidden ;">
+                <p class="mx-3 text-end">Developed by &nbsp;&nbsp;&nbsp;<b>Maya V. Langnecha</b></p>
+            </div>
+        </div>
+
+
+
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+</body>
+
+</html>

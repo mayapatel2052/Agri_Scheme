@@ -1,0 +1,86 @@
+{% include "farmer_header.html" %}
+
+{% now "Ymd" as current %}
+{% for i in schemedata1 %}
+<div class="row">
+    <div class="col-sm-8">
+        <div class="card mx-5 mt-5 bg-transparent" style="border-radius: 5px;">
+            <div class="card-body p-4">
+                <h5 class="card-title fw-bold fs-2">{{i.Name}}</h5>
+                <b class="text-danger">Expired Date: {{i.Ending_date|date:'M d Y'}}</b>
+                <p>Eligibility : {{i.Eligibility}} <br>
+                    Description : {{i.Schemes_desc}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="card mx-5 mt-5 bg-transparent border-0 p-5">
+            <form action="{% url 'farmer_apply_scheme' i.Schemes_id %}" method="post">
+                {% csrf_token %}
+                {% if i.Ending_date|date:'Ymd' < current %} 
+                <b class="text-danger">Scheme Expired</b>
+                {% else %}
+                <input type="submit" value="Apply" class="btn btn-warning" style="width: 15rem;">
+                {% endif %}
+            </form>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+{% for i in schemedata2 %}
+<div class="row">
+    <div class="col-sm-8">
+        <div class="card mx-5 mt-5 bg-transparent" style="border-radius: 5px;">
+            <div class="card-body p-4">
+                <h5 class="card-title fw-bold fs-2">{{i.Name}}</h5>
+                <b class="text-danger">Expired Date: {{i.Ending_date|date:'M d Y'}}</b>
+                <p>Eligibility : {{i.Eligibility}} <br>
+                    Description : {{i.Schemes_desc}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="card mx-5 mt-5 bg-transparent border-0 p-5">
+            <form action="{% url 'farmer_apply_scheme' i.Schemes_id %}" method="post">
+                {% csrf_token %}
+                {% if i.Ending_date|date:'Ymd' < current %} 
+                <b class="text-danger">Scheme Expired</b>
+                {% else %}
+                <input type="submit" value="Apply" class="btn btn-warning" style="width: 15rem;">
+                {% endif %}
+            </form>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+{% for i in schemedata3 %}
+<div class="row">
+    <div class="col-sm-8">
+        <div class="card mx-5 mt-5 bg-transparent" style="border-radius: 5px;">
+            <div class="card-body p-4">
+                <h5 class="card-title fw-bold fs-2">{{i.Name}}</h5>
+                <b class="text-danger">Expired Date: {{i.Ending_date|date:'M d Y'}}</b>
+                <p>Eligibility : {{i.Eligibility}} <br>
+                    Description : {{i.Schemes_desc}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="card mx-5 mt-5 bg-transparent border-0 p-5">
+            <form action="{% url 'farmer_apply_scheme' i.Schemes_id %}" method="post">
+                {% csrf_token %}
+                {% if i.Ending_date|date:'Ymd' < current %} 
+                <b class="text-danger">Scheme Expired</b>
+                {% else %}
+                <input type="submit" value="Apply" class="btn btn-warning" style="width: 15 rem;">
+                {% endif %}
+            </form>
+        </div>
+    </div>
+</div>
+{% endfor %}
+<div class="mt-5"></div>
+
+{% include "footer.html" %}
